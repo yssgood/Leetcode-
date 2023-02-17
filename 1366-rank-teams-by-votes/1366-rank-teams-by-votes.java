@@ -24,10 +24,22 @@ class Solution {
         //     return a.compareTo(b); 
         // });
         
-        Collections.sort(lst,(a,b)->{
-            for(int i = 0; i < hashMap.get(a).length; i++){
+        // Collections.sort(lst,(a,b)->{
+        //     for(int i = 0; i < hashMap.get(a).length; i++){
+        //         if(hashMap.get(a)[i] < hashMap.get(b)[i]){
+        //             return 1;
+        //         }
+        //         else if(hashMap.get(a)[i] > hashMap.get(b)[i]){
+        //             return -1; 
+        //         }
+        //     }
+        //     return a.compareTo(b); 
+        // });
+        
+        lst.sort((a,b)->{
+           for(int i = 0; i < hashMap.get(a).length; i++){
                 if(hashMap.get(a)[i] < hashMap.get(b)[i]){
-                    return 1;
+                    return hashMap.get(b)[i]-hashMap.get(a)[i]; 
                 }
                 else if(hashMap.get(a)[i] > hashMap.get(b)[i]){
                     return -1; 
