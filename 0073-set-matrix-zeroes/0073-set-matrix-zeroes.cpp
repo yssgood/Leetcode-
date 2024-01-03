@@ -1,46 +1,40 @@
 class Solution {
-public:
-    void turnZero(int x, int y, map<pair<int,int>,int>& hashMap, vector<vector<int>>& matrix){
-        
-        for(int j = y; j < matrix[0].size(); j++){
-            //if(y != j && hashMap.count({x,j})) break; 
-            matrix[x][j] = 0; 
-            hashMap[{x,j}]++; 
-        }
-        
-        for(int j = y; j >= 0; j--){
-            //if(y != j && hashMap.count({x,j})) break; 
-            matrix[x][j] = 0; 
-            hashMap[{x,j}]++; 
-        }
-        for(int i = x; i < matrix.size(); i++){
-            //if(x != i && hashMap.count({i,y})) break; 
+vector<pair<int,int>> vp; 
+public: 
+    void turnZero(vector<vector<int>>& matrix, int x, int y){
+        int top = 0, left = 0, right = matrix[0].size()-1, bottom = matrix.size()-1; 
+
+        for(int i = x; i >= top; i--){
             matrix[i][y] = 0; 
-            hashMap[{i,y}]++; 
         }
-        for(int i = x; i >= 0; i--){
-            //if(x != i && hashMap.count({i,y})) break; 
-            matrix[i][y] = 0;
-            hashMap[{i,y}]++; 
+
+        for(int i = x; i <= bottom; i++){
+            matrix[i][y] = 0; 
         }
+
+        for(int j = y; j <= right; j++){
+            matrix[x][j] = 0; 
+        }
+
+        for(int j = y; j >= left; j--){
+            matrix[x][j] = 0; 
+        }
+        
     }
+
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        map<pair<int,int>,int> hashMap; 
-        vector<pair<int,int>> container; 
         for(int i = 0; i < matrix.size(); i++){
-            for(int j = 0; j < matrix[i].size(); j++){
-                if(matrix[i][j] == 0) container.push_back({i,j}); 
+            for(int j = 0;j < matrix[i].size(); j++){
+                if(matrix[i][j] == 0){
+                    vp.push_back({i,j}); 
+                }
             }
         }
-        
-        for(pair<int,int>& p : container){
-            turnZero(p.first,p.second,hashMap,matrix); 
+
+        for(pair<int,int>& p : vp){
+            turnZero(matrix,p.first,p.second); 
         }
+
     }
 };
-
-// [[1,0,3,4],
-//  [0,0,0,0],
-//  [0,0,11,0],
-//  [0,0,0,0]]
